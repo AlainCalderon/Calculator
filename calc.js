@@ -78,7 +78,14 @@ function getProd(a,b){
     return Number(a*b);
 }
 function getQuot(a,b){
+    if(b == 0){
+        updateScreen('Not Possible')
+        clearValues();
+        return;}
+    else{
+    
     return Number(a/b);
+    }
 }
 
 
@@ -94,6 +101,5 @@ function operate(){
         secVal = setSecondVal(screenText);
         opChosen(oP,firstVal,secVal);
         screenText='';
-    
 }
 
