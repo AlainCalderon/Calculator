@@ -5,7 +5,7 @@ let equalOp = document.querySelector('button.calc');
 let  clear = document.querySelector('button.clear');
 let screenText = '';
 let oP = '';
-let firstVal,secVal = 0;
+let firstVal,secVal,outputVal=0;
 
 operatorBtns.forEach(btn => {
     btn.addEventListener('click',opClick);
@@ -17,10 +17,10 @@ equalOp.addEventListener('click',operate);
 clear.addEventListener('click',clearValues);
 
 function clearValues(){
-    firstVal= 0;
+    firstVal = undefined;
     secVal = 0;
     oP = '';
-    screenText=''
+    screenText='';
     updateScreen(screenText);
 }
 
@@ -31,87 +31,69 @@ function numClick(event){
 
 // the main function doing the string equation, Function must recognize if firstValue is not defined else run the function that does the equation , then reset the process
 function opClick(event){
-	switch(true){
-
-    case (oP === '' && firstVal === undefined):
-    firstVal = parseInt(screenText);
-    oP = event.target.value;
-    screenText = '';
-    updateScreen(screenText);
-    break;
-    
-    case(oP !== '' && secVal === 0):
-    secVal  = parseInt(screenText);
-    screenText = '';
-    opChosen(oP,firstVal,secVal);
-    break;
-    
-    case (oP === '' && firstVal !== undefined):
-    secVal=parseInt(screenText);    
-    oP = event.target.value;
-    screenText='';
-    opChosen(oP,firstVal,secVal);
-    break;
-    
-    default:
-    alert('shit is fucked');
+    switch(true){
+        case (firstVal === undefined):
+            firstVal = setFirstVal(screenText);
+            oP = event.target.value;
+            screenText = '';
+            break;
+        case (oP !== ''):
+            secVal = setSecondVal(screenText);
+            opChosen(oP,firstVal,secVal);
+            oP = event.target.value;
+            screenText='';
     }
-
 }
 //funcion that does the multiple calculations
 function opChosen(theOp,operandUno,operandDos){
-    let uno = parseInt(operandUno);
-    let dos = parseInt(operandDos);
-    switch(theOp){
-        case '+':
-            uno += dos;
-            firstVal = uno;
-            screenText = firstVal;
-            updateScreen(screenText);
-            screenText='';
-            theOp = '';
-            oP = theOp;
+   switch(theOp){
+       case '+':
+           firstVal = getSum(operandUno,operandDos);
+            updateScreen(firstVal);
             break;
         case '-':
-            uno -= dos;
-            firstVal = uno;
-            screenText = firstVal;
-            updateScreen(screenText);
-            screenText='';
-            theOp = '';
-            oP = theOp;
+            firstVal = getDiff(operandUno,operandDos);
+            updateScreen(firstVal);
             break;
         case '*':
-            uno *= dos;
-            firstVal = uno;
-            screenText = firstVal;
-            updateScreen(screenText);
-            screenText='';
-            theOp = '';
-            oP = theOp;
+            firstVal = getProd(operandUno,operandDos);
+            updateScreen(firstVal);
             break;
         case '/':
-            uno /= dos;
-            firstVal = uno;
-            screenText = firstVal;
-            updateScreen(screenText);
-            screenText='';
-            theOp = '';
-            oP = theOp;
+            firstVal = getQuot(operandUno,operandDos);
+            updateScreen(firstVal);
             break;
-        default:
-            alert('que?')
-            break;
-    }
+   }
 }
+
+
+
+function getSum(a,b){
+    return Number(a+b);
+}
+function getDiff(a,b){
+    return Number(a-b);
+}
+function getProd(a,b){
+    return Number(a*b);
+}
+function getQuot(a,b){
+    return Number(a/b);
+}
+
+
+function setFirstVal(a){return Number(a);}
+function setSecondVal(b){return Number(b);}
+
 
 function updateScreen(string){
     screen.innerText  = string;
 }
 //Equals operator function
 function operate(){
-
-
+        secVal = setSecondVal(screenText);
+        opChosen(oP,firstVal,secVal);
+        screenText='';
     
 }
 

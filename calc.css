@@ -1,8 +1,12 @@
+:root{
+    --neon-text-color:#f40;
+    --neon-border-color:#08f;
+}
 *{
     margin:0;
     padding:0;
     box-sizing: border-box;
-    font-family: 'Staatliches', cursive;
+    font-family: 'Press Start 2P', cursive;
 }
 body{
     width: 100%;
@@ -10,22 +14,67 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:lightskyblue;
+    background-color:black;
 }
 /* Calc Screen and Body */
 #calc-body{
-    background-color: rgb(108, 122, 122);
+    background-color: black;
     width:22%;
     height:55%;
-    border:2px solid slategrey;
-    border-radius: 8px;
+    border:.4rem solid slategrey;
+    border-radius: 2rem;
+    animation: flicker 1.5s infinite alternate;
+    
 }
-#calc-screen{width:80%; height: 5rem; background-color: ivory; margin:1rem auto;border-radius: 4px; font-size: 2rem;border:2px  solid black;}
+#calc-screen{width:80%; height: 5rem; background-color: black; margin:1rem auto;border-radius: 4px; font-size: 2rem;border:2px  solid black; color: #fff; }
 
 
 /*Calc Buttons */
 
-#calc-btn{display:flex; height:30%; width:80%; flex-wrap: wrap; margin:0 auto; }
-.btn-child{border-radius: 4px; padding:.2rem; background-color: antiquewhite; flex-basis: 25%; font-size: 1.5rem;height: 60%;}
-.num{background-color: lightgray; font-size: 2rem;}
-.operator{font-size: 2rem; text-align: center; background-color: orange;}
+
+#calc-btn{display:flex; height:25%; width:80%; flex-wrap: wrap; margin:0 auto; }
+.btn-child{border-radius: 2rem; padding:.2rem; background-color: black; flex-basis: 25%; font-size: 1.5rem;height: 60%;color: #fff;}
+.btn-child:hover{animation: neon3 1.5s ease-in-out infinite alternate;}
+.btn-child:focus{outline: none;}
+.num{background-color: black; font-size: 2rem;}
+.operator{font-size: 2rem; text-align: center; background-color: black;}
+.calc{flex-basis: 50%;}
+.dot {flex-basis: 50%;}
+
+@keyframes flicker {
+    
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+      
+        text-shadow:
+            -0.2rem -0.2rem 1rem #fff,
+            0.2rem 0.2rem 1rem #fff,
+            0 0 2rem var(--neon-text-color),
+            0 0 4rem var(--neon-text-color),
+            0 0 6rem var(--neon-text-color),
+            0 0 8rem var(--neon-text-color),
+            0 0 10rem var(--neon-text-color);
+        
+        box-shadow:
+            0 0 .5rem #fff,
+            inset 0 0 .5rem #fff,
+            0 0 2rem var(--neon-border-color),
+            inset 0 0 2rem var(--neon-border-color),
+            0 0 4rem var(--neon-border-color),
+            inset 0 0 4rem var(--neon-border-color);        
+    }
+    
+    20%, 24%, 55% {        
+        text-shadow: none;
+        box-shadow: none;
+    }    
+}
+
+@keyframes neon3{
+
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FFDD1B, 0 0 70px #FFDD1B, 0 0 80px #FFDD1B, 0 0 100px #FFDD1B, 0 0 150px #FFDD1B;
+      }
+      to {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FFDD1B, 0 0 35px #FFDD1B, 0 0 40px #FFDD1B, 0 0 50px #FFDD1B, 0 0 75px #FFDD1B;
+      }
+    }
